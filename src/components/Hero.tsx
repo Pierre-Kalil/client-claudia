@@ -1,6 +1,13 @@
 import { Heart, Sparkles, Star } from "lucide-react";
 
-const Hero = () => {
+type HeroProps = {
+  titleLine1: string;
+  titleLine2: string;
+  description: string;
+  ctaLabel: string;
+};
+
+const Hero = ({ titleLine1, titleLine2, description, ctaLabel }: HeroProps) => {
   return (
     <section className="relative overflow-hidden bg-hero-gradient py-20 md:py-32">
       {/* Decorative Elements */}
@@ -15,26 +22,19 @@ const Hero = () => {
       </div>
 
       <div className="container mx-auto px-4 text-center">
-        <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 font-body text-sm font-medium text-primary">
-          ✨ Curadoria especial para você
-        </span>
-        
         <h1 className="mt-6 font-display text-4xl font-semibold leading-tight text-foreground md:text-6xl lg:text-7xl">
-          Descubra o melhor do
-          <span className="block text-primary">autocuidado feminino</span>
+          {titleLine1}
+          <span className="block text-primary">{titleLine2}</span>
         </h1>
-        
         <p className="mx-auto mt-6 max-w-2xl font-body text-lg text-muted-foreground md:text-xl">
-          Uma seleção especial de produtos para skincare, cabelos e corpo. 
-          Curadoria feita com carinho para realçar sua beleza natural.
+          {description}
         </p>
-
         <a
           href="#produtos"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-button-gradient px-8 py-4 font-body text-sm font-semibold text-primary-foreground shadow-soft transition-all duration-300 hover:shadow-hover hover:-translate-y-0.5"
         >
           <Sparkles className="h-4 w-4" />
-          Explorar Produtos
+          {ctaLabel}
         </a>
       </div>
     </section>
