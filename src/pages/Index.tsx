@@ -4,9 +4,10 @@ import Hero from "@/components/Hero";
 import CategoryFilter from "@/components/CategoryFilter";
 import ProductCard from "@/components/ProductCard";
 import Footer from "@/components/Footer";
-import { products, categories } from "@/data/products";
+import { useAppContent } from "@/hooks/use-app-content";
 
 const Index = () => {
+  const { content, products, categories } = useAppContent();
   const [activeCategory, setActiveCategory] = useState("Todos");
 
   const filteredProducts = activeCategory === "Todos"
@@ -15,36 +16,26 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      <Hero />
+      <Header brandName={content["header.brand.name"] ?? "-"} />
+      <Hero
+        titleLine1={content["hero.title.line_1"] ?? "-"}
+        titleLine2={content["hero.title.line_2"] ?? "-"}
+        description={content["hero.description"] ?? "-"}
+        ctaLabel={content["hero.cta.primary"] ?? "-"}
+      />
 
       {/* Products Section */}
       <section id="produtos" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div className="mb-12 text-center">
-            <span className="font-body text-sm font-medium uppercase tracking-widest text-accent">
-              Curadoria Especial
-            </span>
             <h2 className="mt-2 font-display text-3xl font-semibold text-foreground md:text-4xl lg:text-5xl">
-              Produtos Selecionados
+              {content["products.section.title"] ?? "-"}
             </h2>
-            <p className="mx-auto mt-4 max-w-xl font-body text-muted-foreground">
-              Escolhidos a dedo para proporcionar os melhores resultados para sua rotina de autocuidado.
-            </p>
-          </div>
-
-          {/* Category Filter */}
-          <div id="categorias" className="mb-12">
-            <CategoryFilter
-              categories={categories}
-              activeCategory={activeCategory}
-              onCategoryChange={setActiveCategory}
-            />
           </div>
 
           {/* Products Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProducts.map((product, index) => (
               <div
                 key={product.id}
@@ -58,6 +49,7 @@ const Index = () => {
                   price={product.price}
                   link={product.link}
                   category={product.category}
+                  ctaLabel={content["product_card.cta.view"] ?? "-"}
                 />
               </div>
             ))}
@@ -67,14 +59,19 @@ const Index = () => {
           {filteredProducts.length === 0 && (
             <div className="py-20 text-center">
               <p className="font-body text-lg text-muted-foreground">
-                Nenhum produto encontrado nesta categoria.
+                {content["products.empty_state"] ?? "-"}
               </p>
             </div>
           )}
         </div>
       </section>
 
-      <Footer />
+      <Footer
+        brandName={content["footer.brand.name"] ?? "-"}
+        description={content["footer.description"] ?? "-"}
+        loveLine={content["footer.love_line"] ?? "-"}
+        year={2026}
+      />
     </div>
   );
 };

@@ -8,9 +8,10 @@ interface ProductCardProps {
   price: string;
   link: string;
   category: string;
+  ctaLabel: string;
 }
 
-const ProductCard = ({ image, name, description, price, link, category }: ProductCardProps) => {
+const ProductCard = ({ image, name, description, price, link, category, ctaLabel }: ProductCardProps) => {
   const isExternal = link.startsWith("http");
   const cardContent = (
     <div className="relative overflow-hidden rounded-lg bg-card shadow-card transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
@@ -49,7 +50,7 @@ const ProductCard = ({ image, name, description, price, link, category }: Produc
               {price}
             </span>
             <span className="font-body text-xs font-medium text-accent">
-              Ver produto →
+              {ctaLabel}
             </span>
           </div>
         </div>
@@ -70,7 +71,7 @@ const ProductCard = ({ image, name, description, price, link, category }: Produc
   }
 
   return (
-    <Link to={link} className="group block">
+    <Link to={"#"} className="group block">
       {cardContent}
     </Link>
   );
